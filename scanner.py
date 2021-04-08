@@ -2,7 +2,7 @@
 
 import sys
 import socket
-from datetime import datetime
+from datetime import datetime      #importing for timeout and time taken
 
 #defining the target
 if len(sys.argv) != 4:
@@ -20,23 +20,23 @@ print("-"*70)
 print("Scanning Target:",+target)
 print("Time started: "+str(datetime.now()))
 
-try:
+try:                       #TRY/EXCEPT block
 
      for port in range(start_port, end_port+1):
 
          print("Scanning port:",port)
-         s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-         socket.setdefaulttimeout(2)
+         s = socket.socket(socket.AF_INET, socket.SOCK_STREAM) #address, TCP
+         socket.setdefaulttimeout(2)                           #timeout to prevent delay
          result = s.connect_ex((target, port)) 
          if result == 0:
              print("Port {} is open".format(port))
          s.close()
 
-except KeyboardInterrupt:
+except KeyboardInterrupt:                  #keyboard clicks
     print("\nexiting program.")
     sys.exit
 
-except socket.gaierror:
+except socket.gaierror:            #address info errOR
     print("Hostname could not be resolved")
     sys.exit
 
